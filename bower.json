@@ -1,0 +1,9 @@
+{
+    "name": "datavisualizer",
+    "version": "1.0.0",
+    "dependencies": {
+        "bootstrap": "latest",
+        "jquery": "latest",
+        "angular": "latest"
+    }
+}
