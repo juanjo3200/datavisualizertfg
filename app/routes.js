@@ -1,7 +1,7 @@
 // app/routes.js
 
 // grab the nerd model we just created
-var Nerd = require('./models/nerd');
+var User = require('./models/users');
 
    module.exports = function(app) {
 
@@ -10,19 +10,23 @@ var Nerd = require('./models/nerd');
        // authentication routes
 
        // sample api route
-       app.get('/api/nerds', function(req, res) {
-           // use mongoose to get all nerds in the database
-           Nerd.find(function(err, nerds) {
-
-               // if there is an error retrieving, send the error.
-                               // nothing after res.send(err) will execute
-               if (err)
-                   res.send(err);
-
-               res.json(nerds); // return all nerds in JSON format
-           });
+       app.post('/signup', function (req, res) {
+           var user = {
+              name: req.body.name,
+              email: req.body.email,
+              password: req.body.password
+          };
+          User.create(user, function(err, newUser) {
+             if(err) return res.status(500).send("There was a problem adding the information to the database.");
+             return res.status(200), send(user);
+          });
        });
-
+       app.get('/users', function (req, res) {
+          User.find({}, function(err, users){
+            if (err) return res.status(500).send("There was a problem finding the users.");
+            res.status(200).send(users);
+          });
+       });
        // route to handle creating goes here (app.post)
        // route to handle delete goes here (app.delete)
 
